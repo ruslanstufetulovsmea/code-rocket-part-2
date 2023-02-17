@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 public class HashMapUserRepository implements UserRepository {
@@ -19,5 +20,10 @@ public class HashMapUserRepository implements UserRepository {
         UserEntity entity = converter.convert(user, USER_SEQUENCE);
         USER_SEQUENCE++;
         repository.put(entity.getId(), entity);
+    }
+
+    @Override
+    public Optional<User> findUserById(Integer id) {
+        return Optional.empty();
     }
 }

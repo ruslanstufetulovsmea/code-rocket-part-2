@@ -12,4 +12,9 @@ public class UserService {
     public void createUser(User user) {
         userRepository.save(user);
     }
+
+    public User getUserById(Integer id) {
+        return userRepository.findUserById(id)
+                             .orElseThrow(() -> new IllegalArgumentException("User not found"));
+    }
 }

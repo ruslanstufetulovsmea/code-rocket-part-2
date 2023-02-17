@@ -21,8 +21,8 @@ public class CreateUserAction implements MenuAction {
 
     @Override
     public void execute() {
-        CreateUserInRequest request = userInput.getCreateUserInRequest();
-        User user = converter.convert(request);
+        var request = userInput.getCreateUserInRequest();
+        var user = converter.convert(request);
         userService.createUser(user);
     }
 }

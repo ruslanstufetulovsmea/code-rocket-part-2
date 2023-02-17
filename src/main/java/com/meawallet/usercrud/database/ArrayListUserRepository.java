@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 public class ArrayListUserRepository implements UserRepository {
@@ -19,5 +20,10 @@ public class ArrayListUserRepository implements UserRepository {
         UserEntity entity = converter.convert(user, USER_SEQUENCE);
         USER_SEQUENCE++;
         repository.add(entity);
+    }
+
+    @Override
+    public Optional<User> findUserById(Integer id) {
+        return Optional.empty();
     }
 }
