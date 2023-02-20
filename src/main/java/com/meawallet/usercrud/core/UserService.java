@@ -3,7 +3,9 @@ package com.meawallet.usercrud.core;
 import com.meawallet.usercrud.database.UserRepository;
 import com.meawallet.usercrud.domain.User;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
 
+@Component
 @AllArgsConstructor
 public class UserService {
 

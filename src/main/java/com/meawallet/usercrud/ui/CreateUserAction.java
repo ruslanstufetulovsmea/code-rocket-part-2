@@ -2,11 +2,11 @@ package com.meawallet.usercrud.ui;
 
 
 import com.meawallet.usercrud.core.UserService;
-import com.meawallet.usercrud.domain.User;
-import com.meawallet.usercrud.dto.CreateUserInRequest;
 import com.meawallet.usercrud.ui.converter.CreateUserInRequestToDomainConverter;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
 
+@Component
 @AllArgsConstructor
 public class CreateUserAction implements MenuAction {
 
