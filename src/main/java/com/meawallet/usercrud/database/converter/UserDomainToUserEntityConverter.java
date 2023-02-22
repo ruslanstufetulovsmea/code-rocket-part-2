@@ -7,7 +7,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserDomainToUserEntityConverter {
 
-    public UserEntity convert(User user, Integer id) {
-        return new UserEntity(id, user.getName(), user.getAge());
+    public UserEntity convert(User user) {
+        return UserEntity.builder()
+                         .name(user.getName())
+                         .age(user.getAge())
+                         .build();
     }
 }
