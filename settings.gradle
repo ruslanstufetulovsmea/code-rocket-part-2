@@ -1,1 +1,8 @@
 rootProject.name = 'user-crud'
+
+include 'user-crud-app'
+include 'user-crud-core'
+include 'user-crud-in'
+include 'user-crud-domain'
+include 'user-crud-repository'
+

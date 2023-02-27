@@ -1,0 +1,35 @@
+plugins {
+    id 'java'
+}
+
+group 'com.meawallet'
+version '0.0.1-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(":user-crud-domain")
+    implementation project(":user-crud-core")
+
+    implementation 'org.springframework:spring-context:6.0.5'
+    implementation 'org.springframework:spring-core:6.0.5'
+
+    implementation 'org.springframework:spring-jdbc:6.0.5'
+
+    implementation 'com.h2database:h2:2.1.214'
+
+    implementation 'org.hibernate:hibernate-core:6.1.7.Final'
+    implementation 'org.springframework:spring-orm:6.0.5'
+
+    compileOnly 'org.projectlombok:lombok:1.18.26'
+    annotationProcessor 'org.projectlombok:lombok:1.18.26'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+
+test {
+    useJUnitPlatform()
+}
