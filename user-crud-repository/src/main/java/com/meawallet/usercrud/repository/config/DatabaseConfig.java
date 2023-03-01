@@ -27,12 +27,6 @@ public class DatabaseConfig {
     }
 
     @Bean
-    public JdbcTemplate jdbcTemplate() {
-        return new JdbcTemplate(dataSource());
-    }
-
-
-    @Bean
     public LocalSessionFactoryBean getSessionFactory() {
         LocalSessionFactoryBean bean = new LocalSessionFactoryBean();
 

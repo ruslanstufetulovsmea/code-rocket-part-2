@@ -9,8 +9,8 @@ public class CreateUserInRequestToDomainConverter {
 
     public User convert(CreateUserInRequest request) {
         return User.builder()
-                   .name(request.getName())
-                   .age(request.getAge())
+                   .name(request.name())
+                   .age(request.age())
                    .build();
     }
 }

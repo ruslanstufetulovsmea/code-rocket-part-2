@@ -1,6 +1,7 @@
 package com.meawallet.usercrud.in.dto;
 
-public record CreateUserInRequest(
+public record GetUserInResponse(
+        Integer id,
         String name,
         Integer age
 ) {

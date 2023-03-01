@@ -4,5 +4,5 @@ import com.meawallet.usercrud.domain.User;
 
 public interface SaveUserPort {
 
-    void save(User user);
+    User save(User user);
 }

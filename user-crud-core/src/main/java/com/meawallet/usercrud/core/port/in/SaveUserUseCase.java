@@ -4,6 +4,6 @@ import com.meawallet.usercrud.domain.User;
 
 public interface SaveUserUseCase {
 
-    void saveUser(User user);
+    User saveUser(User user);
 
 }

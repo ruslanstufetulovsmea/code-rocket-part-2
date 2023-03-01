@@ -13,7 +13,7 @@ class SaveUserService implements SaveUserUseCase {
     private final SaveUserPort saveUserPort;
 
     @Override
-    public void saveUser(User user) {
-        saveUserPort.save(user);
+    public User saveUser(User user) {
+        return saveUserPort.save(user);
     }
 }

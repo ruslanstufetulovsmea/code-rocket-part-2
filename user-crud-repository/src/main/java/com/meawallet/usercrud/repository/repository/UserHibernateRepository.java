@@ -1,8 +1,8 @@
 package com.meawallet.usercrud.repository.repository;
 
+import com.meawallet.usercrud.domain.User;
 import com.meawallet.usercrud.repository.converter.UserDomainToUserEntityConverter;
 import com.meawallet.usercrud.repository.converter.UserEntityToUserDomainConverter;
-import com.meawallet.usercrud.domain.User;
 import com.meawallet.usercrud.repository.entity.UserEntity;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -21,9 +21,10 @@ public class UserHibernateRepository implements UserRepository {
     private final UserEntityToUserDomainConverter userEntityToUserDomainConverter;
 
     @Override
-    public void save(User user) {
+    public User save(User user) {
         var entity = domainToUserEntityConverter.convert(user);
         sessionFactory.getCurrentSession().persist(entity);
+        return userEntityToUserDomainConverter.convert(entity);
     }
 
     @Override
