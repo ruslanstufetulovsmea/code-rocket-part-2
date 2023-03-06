@@ -1,12 +1,14 @@
 package com.meawallet.usercrud.repository.repository;
 
-import com.meawallet.usercrud.domain.User;
+import com.meawallet.usercrud.repository.entity.UserEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-public interface UserRepository {
+@Repository
+public interface UserRepository extends JpaRepository<UserEntity, Integer> {
 
-    User save(User user);
+    Optional<UserEntity> findById(Integer id);
 
-    Optional<User> findUserById(Integer id);
 }

@@ -1,28 +1,22 @@
 package com.meawallet.usercrud.repository;
 
-import com.meawallet.usercrud.core.port.out.SaveUserPort;
+import com.meawallet.usercrud.core.port.out.UpdateUserPort;
 import com.meawallet.usercrud.domain.User;
 import com.meawallet.usercrud.repository.converter.UserDomainToUserEntityConverter;
-import com.meawallet.usercrud.repository.converter.UserEntityToUserDomainConverter;
 import com.meawallet.usercrud.repository.repository.UserRepository;
-import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
-
 @Component
-@Transactional
 @AllArgsConstructor
-public class SaveUserAdapter implements SaveUserPort {
+public class UpdateUserAdapter implements UpdateUserPort {
 
     private final UserRepository userRepository;
     private final UserDomainToUserEntityConverter userDomainToUserEntityConverter;
-    private final UserEntityToUserDomainConverter userEntityToUserDomainConverter;
 
     @Override
-    public User save(User user) {
+    public void update(User user) {
         var entity = userDomainToUserEntityConverter.convert(user);
         userRepository.save(entity);
-        return userEntityToUserDomainConverter.convert(entity);
     }
 }
