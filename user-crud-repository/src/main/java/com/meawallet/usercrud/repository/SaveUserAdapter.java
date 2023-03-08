@@ -7,9 +7,10 @@ import com.meawallet.usercrud.repository.converter.UserEntityToUserDomainConvert
 import com.meawallet.usercrud.repository.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-
+@Slf4j
 @Component
 @Transactional
 @AllArgsConstructor
@@ -23,6 +24,7 @@ public class SaveUserAdapter implements SaveUserPort {
     public User save(User user) {
         var entity = userDomainToUserEntityConverter.convert(user);
         userRepository.save(entity);
+        log.debug("User: {} saved successfully", entity);
         return userEntityToUserDomainConverter.convert(entity);
     }
 }

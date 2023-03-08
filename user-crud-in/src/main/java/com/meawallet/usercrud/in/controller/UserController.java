@@ -13,7 +13,9 @@ import com.meawallet.usercrud.in.dto.CreateUserInRequest;
 import com.meawallet.usercrud.in.dto.CreateUserInResponse;
 import com.meawallet.usercrud.in.dto.GetUserInResponse;
 import com.meawallet.usercrud.in.dto.UpdateUserInRequest;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -29,6 +31,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @RestController
 @AllArgsConstructor
 public class UserController {
@@ -45,7 +48,8 @@ public class UserController {
 
     //    @RequestMapping(method = RequestMethod.POST, path = "/users")
     @PostMapping(value = "/users")
-    public ResponseEntity<CreateUserInResponse> create(@RequestBody CreateUserInRequest request) {
+    public ResponseEntity<CreateUserInResponse> create(@Valid @RequestBody CreateUserInRequest request) {
+        log.debug("Received create user request: {}", request);
         var user = createUserInRequestToDomainConverter.convert(request);
         var createdUser = saveUserUseCase.saveUser(user);
         var responseBody = userToCreateUserInResponseConverter.convert(createdUser);
@@ -62,6 +66,7 @@ public class UserController {
 
     @GetMapping(value = "/users/{id}")
     public GetUserInResponse findUserById(@PathVariable Integer id) {
+        log.debug("Received find user by id request: {}", id);
         var user = getUserUseCase.getUser(id);
         return userToGetUserInResponseConverter.convert(user);
     }
@@ -69,6 +74,7 @@ public class UserController {
 
     @GetMapping(value = "/users")
     public List<GetUserInResponse> findAll() {
+        log.debug("Received find all users request");
         return getAllUsersUseCase.getAll().stream()
                                  .map(userToGetUserInResponseConverter::convert)
                                  .collect(Collectors.toList());
@@ -78,13 +84,15 @@ public class UserController {
     @DeleteMapping(value = "/users/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteById(@PathVariable Integer id) {
+        log.debug("Received delete user by id request: {}", id);
         deleteUserByIdUseCase.deleteById(id);
     }
 
 
     @PutMapping(value = "/users/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(@RequestBody UpdateUserInRequest updateUserInRequest, @PathVariable Integer id) {
+    public void update(@Valid @RequestBody UpdateUserInRequest updateUserInRequest, @PathVariable Integer id) {
+        log.debug("Received update user request: {}, id: {}", updateUserInRequest, id);
         var user = updateUserInRequestToUserConverter.convert(updateUserInRequest, id);
         updateUserUseCase.update(user);
     }
