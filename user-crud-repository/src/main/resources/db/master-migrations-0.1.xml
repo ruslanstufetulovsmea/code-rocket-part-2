@@ -20,4 +20,27 @@
             <column name="last_name" type="VARCHAR"/>
         </addColumn>
     </changeSet>
+
+    <changeSet id="create.quotes.table" author="ruslans.tufetulovs">
+        <createTable tableName="quotes">
+            <column name="id" type="INTEGER" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="author" type="VARCHAR">
+                <constraints nullable="false"/>
+            </column>
+            <column name="content" type="VARCHAR">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="add.relations.to.quote.and.user" author="ruslans.tufetulovs">
+        <addColumn tableName="users">
+            <column name="quote_id" type="INTEGER"/>
+        </addColumn>
+        <addForeignKeyConstraint baseTableName="users" baseColumnNames="quote_id" constraintName="fk_quote_id" referencedTableName="quotes"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
 </databaseChangeLog>

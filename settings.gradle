@@ -5,4 +5,5 @@ include 'user-crud-core'
 include 'user-crud-in'
 include 'user-crud-domain'
 include 'user-crud-repository'
+include 'user-crud-out'
 

@@ -23,7 +23,7 @@ public class SaveUserAdapter implements SaveUserPort {
     @Override
     public User save(User user) {
         var entity = userDomainToUserEntityConverter.convert(user);
-        userRepository.save(entity);
+        userRepository.saveAndFlush(entity);
         log.debug("User: {} saved successfully", entity);
         return userEntityToUserDomainConverter.convert(entity);
     }

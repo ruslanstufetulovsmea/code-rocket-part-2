@@ -10,14 +10,11 @@ repositories {
 }
 
 dependencies {
-    implementation project(":user-crud-in")
+
     implementation project(":user-crud-core")
-    implementation project(":user-crud-repository")
     implementation project(":user-crud-domain")
-    implementation project(":user-crud-out")
 
     implementation 'org.springframework.boot:spring-boot-starter-web:3.0.3'
-
 
     compileOnly 'org.projectlombok:lombok:1.18.26'
     annotationProcessor 'org.projectlombok:lombok:1.18.26'

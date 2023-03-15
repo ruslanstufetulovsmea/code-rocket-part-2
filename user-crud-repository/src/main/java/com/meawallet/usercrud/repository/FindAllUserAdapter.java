@@ -5,11 +5,13 @@ import com.meawallet.usercrud.domain.User;
 import com.meawallet.usercrud.repository.converter.UserEntityToUserDomainConverter;
 import com.meawallet.usercrud.repository.repository.UserRepository;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Component
 @AllArgsConstructor
 public class FindAllUserAdapter implements FindAllUserPort {
@@ -19,8 +21,11 @@ public class FindAllUserAdapter implements FindAllUserPort {
 
     @Override
     public List<User> findAll() {
-        return userRepository.findAll().stream()
-                             .map(userEntityToUserDomainConverter::convert)
-                             .collect(Collectors.toList());
+        var users = userRepository.findAll().stream()
+                                  .map(userEntityToUserDomainConverter::convert)
+                                  .collect(Collectors.toList());
+
+        log.debug("Found users: {}", users);
+        return users;
     }
 }
