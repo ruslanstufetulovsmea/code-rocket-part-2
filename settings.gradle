@@ -6,4 +6,5 @@ include 'user-crud-in'
 include 'user-crud-domain'
 include 'user-crud-repository'
 include 'user-crud-out'
+include 'user-crud-itest'
 
