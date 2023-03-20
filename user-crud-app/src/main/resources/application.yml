@@ -23,3 +23,6 @@ logging:
   level:
     com.meawallet.usercrud: DEBUG
 #    root: TRACE
+
+quote-api:
+  quote-url: https://api.quotable.io/random

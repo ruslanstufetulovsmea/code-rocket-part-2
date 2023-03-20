@@ -29,3 +29,6 @@ logging:
   level:
     com.meawallet.usercrud: DEBUG
 #    root: TRACE
+
+quote-api:
+  quote-url: http://localhost:20000/random

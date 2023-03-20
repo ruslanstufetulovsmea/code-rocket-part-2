@@ -11,6 +11,7 @@ import com.meawallet.usercrud.in.converter.UserToCreateUserInResponseConverter;
 import com.meawallet.usercrud.in.converter.UserToGetUserInResponseConverter;
 import com.meawallet.usercrud.in.dto.CreateUserInRequest;
 import com.meawallet.usercrud.in.dto.CreateUserInResponse;
+import com.meawallet.usercrud.in.dto.ErrorResponse;
 import com.meawallet.usercrud.in.dto.GetUserInResponse;
 import com.meawallet.usercrud.in.dto.UpdateUserInRequest;
 import jakarta.validation.Valid;
@@ -18,7 +19,10 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,6 +32,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -95,5 +100,26 @@ public class UserController {
         log.debug("Received update user request: {}, id: {}", updateUserInRequest, id);
         var user = updateUserInRequestToUserConverter.convert(updateUserInRequest, id);
         updateUserUseCase.update(user);
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ErrorResponse handle(Exception e) {
+        return new ErrorResponse(e.getMessage(), LocalDateTime.now());
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handleValidationException(MethodArgumentNotValidException e) {
+        var errorMessage = e.getBindingResult().getFieldErrors().stream()
+                            .map(this::errorDescription)
+                            .sorted()
+                            .toList()
+                            .toString();
+        return new ErrorResponse(errorMessage, LocalDateTime.now());
+    }
+
+    private String errorDescription(FieldError fieldError) {
+        return "Field: " + fieldError.getField() + ", description: " + fieldError.getDefaultMessage();
     }
 }
